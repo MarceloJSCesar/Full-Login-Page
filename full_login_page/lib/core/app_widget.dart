@@ -12,6 +12,10 @@ class AppWidget extends StatelessWidget {
         home: LoginView(),
         theme:
             ThemeData(brightness: isDark ? Brightness.dark : Brightness.light),
+        initialRoute: '/login',
+        routes: {
+          '/login': (_) => LoginView(),
+        },
       ),
     );
   }
