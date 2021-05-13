@@ -39,11 +39,29 @@ class _LoginViewState extends State<LoginView> {
                 controller: _passwordController,
                 decoration: InputDecoration(hintText: 'Password'),
                 textInputAction: TextInputAction.done,
-                onEditingComplete: () async {
-                  UserModel user = await _loginService.login(
-                      _emailController.text, _passwordController.text);
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => HomeView(user: user)));
+                // onEditingComplete: () async {
+                //   UserModel user = await _loginService.login(
+                //       _emailController.text, _passwordController.text);
+                //   Navigator.of(context).pushReplacement(
+                //       MaterialPageRoute(builder: (_) => HomeView(user: user)));
+                // },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ElevatedButton(
+                child: Text('Login'),
+                onPressed: () async {
+                  if (_emailController.text.isNotEmpty &&
+                      _passwordController.text.isNotEmpty) {
+                    UserModel user = await _loginService.login(
+                        _emailController.text, _passwordController.text);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (_) => HomeView(user: user)));
+                  } else {
+                    print('no data in text fields');
+                    return null;
+                  }
                 },
               ),
             ],
