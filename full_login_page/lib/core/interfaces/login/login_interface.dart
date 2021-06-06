@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import '../../models/user_model.dart';
 
@@ -14,5 +15,21 @@ abstract class ILogin {
     } else {
       return null;
     }
+  }
+
+  Future<UserModel> getUser() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    final token = storage.getString('TOKEN');
+    final email = storage.getString('EMAIL');
+    if (token != null && email != null) {
+      return UserModel(email: email, token: token);
+    } else {
+      return null;
+    }
+  }
+
+  Future<bool> logout() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    return true;
   }
 }

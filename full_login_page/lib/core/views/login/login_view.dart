@@ -56,11 +56,21 @@ class _LoginViewState extends State<LoginView> {
                       _passwordController.text.isNotEmpty) {
                     UserModel user = await _loginService.login(
                         _emailController.text, _passwordController.text);
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (_) => HomeView(user: user)));
-                  } else {
-                    print('no data in text fields');
-                    return null;
+                    if (user != null) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (_) => HomeView(user: user),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 3),
+                          content: Text('email or password incorrect'),
+                        ),
+                      );
+                      return null;
+                    }
                   }
                 },
               ),
