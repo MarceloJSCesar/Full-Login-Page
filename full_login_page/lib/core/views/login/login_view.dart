@@ -30,49 +30,58 @@ class _LoginViewState extends State<LoginView> {
           margin: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: <Widget>[
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(hintText: 'E-mail'),
-                textInputAction: TextInputAction.next,
-              ),
-              TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(hintText: 'Password'),
-                textInputAction: TextInputAction.done,
-                // onEditingComplete: () async {
-                //   UserModel user = await _loginService.login(
-                //       _emailController.text, _passwordController.text);
-                //   Navigator.of(context).pushReplacement(
-                //       MaterialPageRoute(builder: (_) => HomeView(user: user)));
-                // },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              ElevatedButton(
-                child: Text('Login'),
-                onPressed: () async {
-                  if (_emailController.text.isNotEmpty &&
-                      _passwordController.text.isNotEmpty) {
-                    UserModel user = await _loginService.login(
-                        _emailController.text, _passwordController.text);
-                    if (user != null) {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (_) => HomeView(user: user),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          duration: Duration(seconds: 3),
-                          content: Text('email or password incorrect'),
-                        ),
-                      );
-                      return null;
-                    }
-                  }
-                },
+              Card(
+                borderOnForeground: true,
+                shadowColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      TextField(
+                        controller: _emailController,
+                        decoration: InputDecoration(hintText: 'E-mail'),
+                        textInputAction: TextInputAction.next,
+                      ),
+                      TextField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(hintText: 'Password'),
+                        textInputAction: TextInputAction.done,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      ElevatedButton(
+                        child: Text('Login'),
+                        onPressed: () async {
+                          if (_emailController.text.isNotEmpty &&
+                              _passwordController.text.isNotEmpty) {
+                            UserModel user = await _loginService.login(
+                                _emailController.text,
+                                _passwordController.text);
+                            if (user != null) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) => HomeView(user: user),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  duration: Duration(seconds: 3),
+                                  content: Text('email or password incorrect'),
+                                ),
+                              );
+                              return null;
+                            }
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

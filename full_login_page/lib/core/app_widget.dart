@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:full_login_page/core/services/login/login_service.dart';
-import 'package:full_login_page/core/views/home/home_view.dart';
+import '../core/views/home/home_view.dart';
 import '../core/views/login/login_view.dart';
+import '../core/services/login/login_service.dart';
 import './controllers/login/login_switch_controller.dart';
 
 class AppWidget extends StatelessWidget {
@@ -25,7 +25,7 @@ class AppWidget extends StatelessWidget {
               case ConnectionState.none:
                 return LoginView();
               default:
-                if (snapshot != null) {
+                if (snapshot.data != null) {
                   return HomeView(user: snapshot.data);
                 } else {
                   return LoginView();
